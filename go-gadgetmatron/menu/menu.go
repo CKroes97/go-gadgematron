@@ -6,17 +6,38 @@ import (
 	"os"
 	"strings"
 
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
 	"github.com/CKroes97/go-gadgematron/internal/modules/timecheck"
 	"github.com/CKroes97/go-gadgematron/internal/modules/weather"
 )
 
 var cityCoords = map[string]weather.Coord{
-	"amsterdam":  {52.3676, 4.9041},
-	"rotterdam":  {51.9244, 4.4777},
-	"utrecht":    {52.0907, 5.1214},
-	"den haag":   {52.0705, 4.3007},
-	"groningen":  {53.2194, 6.5665},
-	"maastricht": {50.8514, 5.6900},
+	"amsterdam": weather.Coord{
+		Lat: 52.3676,
+		Lon: 4.9041,
+	},
+	"rotterdam": weather.Coord{
+		Lat: 51.9244,
+		Lon: 4.4777,
+	},
+	"utrecht": weather.Coord{
+		Lat: 52.0907,
+		Lon: 5.1214,
+	},
+	"den haag": weather.Coord{
+		Lat: 52.0705,
+		Lon: 4.3007,
+	},
+	"groningen": weather.Coord{
+		Lat: 53.2194,
+		Lon: 6.5665,
+	},
+	"maastricht": weather.Coord{
+		Lat: 50.8514,
+		Lon: 5.6900,
+	},
 }
 
 func ShowMainMenu() {
@@ -55,7 +76,9 @@ func handleWeather() {
 		return
 	}
 
-	if err := weather.GetWeather(coord, strings.Title(city)); err != nil {
+	caser := cases.Title(language.Dutch)
+	cityTitle := caser.String(city)
+	if err := weather.GetWeather(coord, cityTitle); err != nil {
 		fmt.Println("Error:", err)
 	}
 }
