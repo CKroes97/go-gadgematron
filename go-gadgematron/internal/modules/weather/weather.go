@@ -11,8 +11,6 @@ type Coord struct {
 	Lon float64
 }
 
-// Keep your cityCoords map here (or move it to menu.go if you want)
-
 type metResponse struct {
 	Properties struct {
 		Timeseries []struct {
