@@ -14,8 +14,8 @@ jobs:
         with:
           go-version: '1.21'
 
-      - name: Install golangci-lint
-        uses: golangci/golangci-lint-action@v4
-
       - name: Run golangci-lint
-        run: golangci-lint run ./go-gadgetmatron
+        uses: golangci/golangci-lint-action@v4
+        with:
+          working-directory: go-gadgetmatron
+        
